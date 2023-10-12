@@ -1,3 +1,46 @@
 #! /usr/bin/env zsh
 
+autoload zcalc
+
+#
+# ::: Utilities ::
+#
+function next; [[ -z "$1" ]] && echo -n $(zcalc -e "$(<&0) +  1") || echo -n $(zcalc -e "$1 + 1")
+function add;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) + $1") || echo -n $(zcalc -e "$1 + $2")
+function sub;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) - $1") || echo -n $(zcalc -e "$1 - $2")
+function div;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) / $1") || echo -n $(zcalc -e "$1 / $2")
+
+#
+# ::: Main :::
+#
+function main {
+  local -a params=("$@")
+  local -a options=(${params[1, -1]})
+
+  local page_title=${options[$(echo $options[(i)-p:t] | next)]}
+  local page_number=${options[$(echo $options[(i)-p:n] | next)]}
+  local page_width=${options[$(echo $options[(i)-p:w] | next)]}
+  local page_height=${options[$(echo $options[(i)-p:h] | next)]}
+  local text_width=${options[$(echo $options[(i)-t:w] | next)]}
+  local text_height=${options[$(echo $options[(i)-t:h] | next)]}
+
+  local margin_top=$(sub $page_height $text_height | div 2.0)
+  local margin_right=$(sub $page_width $text_width | div 2.0 | add $text_width)
+  local margin_bottom=$(sub $page_height $text_height | div 2.0 | add $text_height)
+  local margin_left=$(sub $page_width $text_width | div 2.0)
+
+  printf "%s, с. %s\n----\nШирина: %s мм\nВысота: %s мм\n----\nВерхняя: %s мм\nПравая: %s мм\nНижняя: %s мм\nЛевая: %s мм\n" \
+    $page_title \
+    $page_number \
+    $page_width \
+    $page_height \
+    $margin_top \
+    $margin_right \
+    $margin_bottom \
+    $margin_left \
+      | tee >(xclip -selection 'clipboard' -i)
+}
+
+main "$@"
+
 # vim: set textwidth=80 colorcolumn=80:
