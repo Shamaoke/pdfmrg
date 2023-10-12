@@ -43,7 +43,7 @@ pdfmrg \
   -t:w 37.82 \
   -t:h 2.02
 #
-# „Yale language series“, с. 2
+# „Yale language series“, с. 3
 #   Ширина: 182.0 мм
 #   Высота: 257.0 мм
 #   ----
