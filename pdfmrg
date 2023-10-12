@@ -29,7 +29,7 @@ function main {
   local margin_bottom=$(sub $page_height $text_height | div 2.0 | add $text_height)
   local margin_left=$(sub $page_width $text_width | div 2.0)
 
-  printf "%s, с. %s\n----\nШирина: %s мм\nВысота: %s мм\n----\nВерхняя: %s мм\nПравая: %s мм\nНижняя: %s мм\nЛевая: %s мм\n" \
+  printf "%s, с. %s\n  Ширина: %s мм\n  Высота: %s мм\n  ----\n  Верхняя: %s мм\n  Правая: %s мм\n  Нижняя: %s мм\n  Левая: %s мм\n" \
     $page_title \
     $page_number \
     $page_width \
