@@ -39,7 +39,7 @@ function main {
   local cut_left=$(sub $margin_left $cut_size)
 
 read -d '' format <<DOC
-%s, с. %d
+%s, %s
   ----
   Страница
   ----
