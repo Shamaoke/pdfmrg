@@ -5,9 +5,9 @@ autoload zcalc
 #
 # ::: Utilities ::
 #
-function add;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) + $1") || echo -n $(zcalc -e "$1 + $2")
-function sub;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) - $1") || echo -n $(zcalc -e "$1 - $2")
-function div;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) / $1") || echo -n $(zcalc -e "$1 / $2")
+function add; [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) + $1") || echo -n $(zcalc -e "$1 + $2")
+function sub; [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) - $1") || echo -n $(zcalc -e "$1 - $2")
+function div; [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) / $1") || echo -n $(zcalc -e "$1 / $2")
 
 function next; [[ -z "$1" ]] && echo -n $(add $(<&0) 1) || echo -n $(add $1 1)
 function half; [[ -z "$1" ]] && echo -n $(div $(<&0) 2.0) || echo -n $(div $1 2.0)
