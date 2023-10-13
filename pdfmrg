@@ -10,6 +10,8 @@ function add;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) + $1") || echo -n $(z
 function sub;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) - $1") || echo -n $(zcalc -e "$1 - $2")
 function div;  [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) / $1") || echo -n $(zcalc -e "$1 / $2")
 
+function half; [[ -z "$1" ]] && echo -n $(div $(<&0) 2.0) || echo -n $(div $1 2.0)
+
 #
 # ::: Main :::
 #
@@ -24,10 +26,10 @@ function main {
   local text_width=${options[$(echo $options[(i)-t:w] | next)]}
   local text_height=${options[$(echo $options[(i)-t:h] | next)]}
 
-  local margin_top=$(sub $page_height $text_height | div 2.0)
-  local margin_right=$(sub $page_width $text_width | div 2.0 | add $text_width)
-  local margin_bottom=$(sub $page_height $text_height | div 2.0 | add $text_height)
-  local margin_left=$(sub $page_width $text_width | div 2.0)
+  local margin_top=$(sub $page_height $text_height | half)
+  local margin_right=$(sub $page_width $text_width | half | add $text_width)
+  local margin_bottom=$(sub $page_height $text_height | half | add $text_height)
+  local margin_left=$(sub $page_width $text_width | half)
 
   local cut_size=${options[$(echo $options[(i)-c:s] | next)]}
 
