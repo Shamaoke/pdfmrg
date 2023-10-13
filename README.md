@@ -41,7 +41,7 @@ Calculate margins for pages of PDF documents.
 ````
 pdfmrg \
   -p:t '„Yale language series“' \
-  -p:n 2 \
+  -p:n 'с. 3' \
   -p:w 182.0 \
   -p:h 257.0 \
   -t:w 37.82 \
