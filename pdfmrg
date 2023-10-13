@@ -29,27 +29,60 @@ function main {
   local margin_bottom=$(sub $page_height $text_height | div 2.0 | add $text_height)
   local margin_left=$(sub $page_width $text_width | div 2.0)
 
-  local cut_top=$(sub $margin_top 2.0)
-  local cut_right=$(add $margin_right 2.0)
-  local cut_bottom=$(add $margin_bottom 2.0)
-  local cut_left=$(sub $margin_left 2.0)
+  local cut_size=${options[$(echo $options[(i)-c:s] | next)]}
 
-  printf "%s, с. %d\n  Страница\n  ----\n  Ширина: %6.2f мм\n  Высота: %6.2f мм\n  ----\n  Текст\n  ----\n  Ширина: %6.2f мм\n  Высота: %6.2f мм\n  ----\n  Границы текст\n  ----\n  Верхняя: %6.2f мм\n  Правая: %7.2f мм\n  Нижняя: %7.2f мм\n  Левая: %8.2f мм\n  ----\n  Границы обрезка\n  ----\n  Верхняя: %6.2f мм\n  Правая: %7.2f мм\n  Нижняя: %7.2f мм\n  Левая: %8.2f мм\n" \
-    $page_title \
-    $page_number \
-    $page_width \
-    $page_height \
-    $text_width \
-    $text_height \
-    $margin_top \
-    $margin_right \
-    $margin_bottom \
-    $margin_left \
-    $cut_top \
-    $cut_right \
-    $cut_bottom \
-    $cut_left \
-      | tee >(xclip -selection 'clipboard' -i)
+  local cut_top=$(sub $margin_top $cut_size)
+  local cut_right=$(add $margin_right $cut_size)
+  local cut_bottom=$(add $margin_bottom $cut_size)
+  local cut_left=$(sub $margin_left $cut_size)
+
+read -d '' format <<DOC
+%s, с. %d
+  ----
+  Страница
+  ----
+  Ширина: %6.2f мм
+  Высота: %6.2f мм
+  ----
+  Текст
+  ----
+  Ширина: %5.2f мм
+  Высота: %5.2f мм
+  ----
+  Границы текст
+  ----
+  Верхняя: %6.2f мм
+  Правая: %7.2f мм
+  Нижняя: %7.2f мм
+  Левая: %8.2f мм
+  ----
+  Размер обрезки: %.2f мм
+  ----
+  Границы обрезка
+  ----
+  Верхняя: %6.2f мм
+  Правая: %7.2f мм
+  Нижняя: %7.2f мм
+  Левая: %8.2f мм
+DOC
+
+printf $format \
+  $page_title \
+  $page_number \
+  $page_width \
+  $page_height \
+  $text_width \
+  $text_height \
+  $margin_top \
+  $margin_right \
+  $margin_bottom \
+  $margin_left \
+  $cut_size \
+  $cut_top \
+  $cut_right \
+  $cut_bottom \
+  $cut_left \
+    | tee >(xclip -selection 'clipboard' -i)
 }
 
 main "$@"
