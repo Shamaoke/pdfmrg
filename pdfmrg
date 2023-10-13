@@ -68,7 +68,7 @@ read -d '' format <<DOC
   Левая: %8.2f мм
 DOC
 
-printf $format \
+printf "$format\n" \
   $page_title \
   $page_number \
   $page_width \
