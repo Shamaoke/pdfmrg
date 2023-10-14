@@ -44,6 +44,7 @@ function main {
   local cut_top=$(sub $margin_top $cut_size)
   local cut_right=$(add $margin_right $cut_size)
   local cut_bottom=$(add $margin_bottom $cut_size)
+  local cut_bottom_from_bottom=$(sub $page_height $cut_bottom)
   local cut_left=$(sub $margin_left $cut_size)
 
   local cut_header_top=$([[ $margin_header_top -ne 0.0 ]] && sub $margin_header_top $cut_size || zero)
@@ -75,7 +76,7 @@ read -d '' format <<DOC
   ----
   Верхняя: %6.2f мм
   Правая: %7.2f мм
-  Нижняя: %7.2f мм
+  Нижняя: %7.2f мм (%6.2f мм)
   Левая: %8.2f мм
   ----
   Границы верхний колонтитул
@@ -112,6 +113,7 @@ printf "$format\n" \
   $cut_top \
   $cut_right \
   $cut_bottom \
+  $cut_bottom_from_bottom \
   $cut_left \
   $margin_header_top \
   $margin_header_bottom \
