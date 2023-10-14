@@ -11,6 +11,7 @@ function div; [[ -z "$2" ]] && echo -n $(zcalc -e "$(<&0) / $1") || echo -n $(zc
 
 function next; [[ -z "$1" ]] && echo -n $(add $(<&0) 1) || echo -n $(add $1 1)
 function half; [[ -z "$1" ]] && echo -n $(div $(<&0) 2.0) || echo -n $(div $1 2.0)
+function zero; echo -n 0.0
 
 #
 # ::: Main :::
@@ -45,8 +46,8 @@ function main {
   local cut_bottom=$(add $margin_bottom $cut_size)
   local cut_left=$(sub $margin_left $cut_size)
 
-  local cut_header_top=$([[ $margin_header_top -ne 0.0 ]] && sub $margin_header_top $cut_size || 0.0)
-  local cut_footer_bottom=$([[ $margin_footer_bottom -ne 0.0 ]] && add $margin_footer_bottom $cut_size || 0.0)
+  local cut_header_top=$([[ $margin_header_top -ne 0.0 ]] && sub $margin_header_top $cut_size || zero)
+  local cut_footer_bottom=$([[ $margin_footer_bottom -ne 0.0 ]] && add $margin_footer_bottom $cut_size || zero)
 
 read -d '' format <<DOC
 %s, %s
