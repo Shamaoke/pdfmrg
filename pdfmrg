@@ -50,6 +50,7 @@ function main {
 
   local cut_header_top=$([[ $margin_header_top -ne 0.0 ]] && sub $margin_header_top $cut_size || zero)
   local cut_footer_bottom=$([[ $margin_footer_bottom -ne 0.0 ]] && add $margin_footer_bottom $cut_size || zero)
+  local cut_footer_bottom_from_bottom=$(sub $page_height $cut_footer_bottom)
 
 read -d '' format <<DOC
 %s, %s
@@ -96,7 +97,7 @@ read -d '' format <<DOC
   ----
   Границы обрезка нижний колонтитул
   ---
-  Нижняя: %6.2f мм
+  Нижняя: %6.2f мм (%6.2f мм)
 DOC
 
 printf "$format\n" \
@@ -123,6 +124,7 @@ printf "$format\n" \
   $margin_footer_bottom \
   $cut_header_top \
   $cut_footer_bottom \
+  $cut_footer_bottom_from_bottom \
     | tee >(xclip -selection 'clipboard' -in)
 }
 
