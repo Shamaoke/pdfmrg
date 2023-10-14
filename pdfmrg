@@ -84,7 +84,7 @@ printf "$format\n" \
   $cut_right \
   $cut_bottom \
   $cut_left \
-    | tee >(xclip -selection 'clipboard' -i)
+    | tee >(xclip -selection 'clipboard' -in)
 }
 
 main "$@"
